@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
 
 const BookingForm = ({ availableTimes }) => {
   const [fName, setFName] = useState("");
@@ -20,8 +19,27 @@ const BookingForm = ({ availableTimes }) => {
     console.log(finalTime);
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    if (
+      fName &&
+      email &&
+      tel &&
+      date &&
+      finalTime &&
+      occasion !== undefined &&
+      preferences !== undefined
+    ) {
+      console.log("Form submitted successfully!");
+      window.location.href = "/confirmation";
+    } else {
+      console.log("Please fill in all required fields");
+    }
+  };
+
   return (
-    <form className="reservation-form">
+    <form className="reservation-form" onSubmit={handleSubmit}>
       <div>
         <label htmlFor="fName">First Name</label> <br />
         <input
@@ -104,7 +122,12 @@ const BookingForm = ({ availableTimes }) => {
 
       <div>
         <label htmlFor="time">Select Time</label> <br />
-        <select id="time" required>
+        <select
+          id="time"
+          required
+          value={finalTime}
+          onChange={(e) => setFinalTime(e.target.value)}
+        >
           {availableTimes.map((time, index) => (
             <option key={index}>{time}</option>
           ))}
@@ -116,6 +139,7 @@ const BookingForm = ({ availableTimes }) => {
         <select
           id="occasion"
           value={occasion}
+          required
           onChange={(e) => setOccasion(e.target.value)}
         >
           <option>None</option>
@@ -131,6 +155,7 @@ const BookingForm = ({ availableTimes }) => {
         <select
           id="preferences"
           value={preferences}
+          required
           onChange={(e) => setPreferences(e.target.value)}
         >
           <option>None</option>
@@ -161,9 +186,9 @@ const BookingForm = ({ availableTimes }) => {
             reservation request.
           </p>
         </small>
-        <Link className="action-button" to="/confirmation">
+        <button type="submit" className="action-button">
           Book Table
-        </Link>
+        </button>
       </div>
     </form>
   );
