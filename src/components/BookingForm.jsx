@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
-const ReservationForm = () => {
+const BookingForm = ({ availableTimes }) => {
   const [fName, setFName] = useState("");
   const [lName, setLName] = useState("");
   const [email, setEmail] = useState("");
@@ -12,8 +12,6 @@ const ReservationForm = () => {
   const [occasion, setOccasion] = useState("");
   const [preferences, setPreferences] = useState("");
   const [comments, setComments] = useState("");
-
-  const availableTimes = ["12:00 PM", "1:00 PM", "6:00 PM", "7:00 PM"];
 
   const handleDateChange = (e) => {
     const selectedDate = e.target.value;
@@ -171,4 +169,4 @@ const ReservationForm = () => {
   );
 };
 
-export default ReservationForm;
+export default BookingForm;
